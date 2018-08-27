@@ -1,0 +1,23 @@
+page-home {
+  .center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    //width: 50%;
+  }
+
+  .bg {
+    /* The image used */
+    background-image: url("../../assets/imgs/horseshoe.jpg");
+
+    /* Full height */
+    height: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}
+
+

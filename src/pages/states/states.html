@@ -1,0 +1,26 @@
+<!--
+  Generated template for the StatesPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>States</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="bg">
+  <ion-list class="transparent-items">
+    <button ion-item *ngFor="let auction of auctionList$ | async" (click)="pushAuctionsPage(state)">
+        {{auction.markets[0]}}
+    </button>
+  </ion-list>
+
+</ion-content>

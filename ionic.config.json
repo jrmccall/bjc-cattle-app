@@ -1,0 +1,8 @@
+{
+  "name": "bjc-cattle-app",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular",
+  "pro_id": "a1650f40"
+}
