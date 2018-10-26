@@ -17,10 +17,16 @@
 
 
 <ion-content padding class="bg">
-  <ion-list class="transparent-items">
-    <button ion-item *ngFor="let auction of auctionList$ | async" (click)="pushAuctionsPage(state)">
-        {{auction.markets[0]}}
-    </button>
-  </ion-list>
+
+  <ion-row class="transparent-items state-header">
+    <ion-col>State</ion-col>
+    <ion-col (click)="sortByAvgSteerPrice()">Average Steer Price</ion-col>
+    <ion-col (click)="sortByAvgHeiferPrice()">Average Heifer Price</ion-col>
+  </ion-row>
+  <ion-row class="transparent-items state-list" *ngFor="let state of states$ | async" (click)="pushAuctionsPage(state.auctions)">
+    <ion-col>{{state.name}}</ion-col>
+    <ion-col>${{state.steerAvgPrice.toFixed(2)}}</ion-col>
+    <ion-col>${{state.heiferAvgPrice.toFixed(2)}}</ion-col>
+  </ion-row>
 
 </ion-content>

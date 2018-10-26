@@ -26,9 +26,10 @@ import {LibraryActions} from "../../library/library.actions";
 })
 export class AuctionPage {
 
-  @ViewChild('chartCanvas') chartCanvas;
+  //@ViewChild('chartCanvas') chartCanvas;
 
   @select(['library', 'togglecurrency']) togglecurrency$: Observable<string>;
+  @select(['library', 'auctionTableData']) auctionTableData$: Observable<any>;
 
 
   auction: any;
@@ -59,14 +60,20 @@ export class AuctionPage {
   };
 
   dataset: any;
+  slug_id: string;
 
   data$: BehaviorSubject<ChartTest[]> = new BehaviorSubject<ChartTest[]>(this.dataset1);
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private _libraryActions: LibraryActions) {
-
+    this.slug_id = this.navParams.data;
   }
 
-  // dataset$: BehaviorSubject<ChartTest[]> = new BehaviorSubject<ChartTest[]>(this.dataset1);
+  auctionInfo$: Observable<any> = this.auctionTableData$.map((auctionTable: any) => {
+    if(auctionTable == null){
+      return null;
+    }
+    return auctionTable[this.slug_id];
+  });
 
   datasetO$: Observable<ChartTest[]> = this.getDataSet();
 
@@ -87,35 +94,35 @@ export class AuctionPage {
 
   loadChart(){
 
-    const timeFormat = 'MM/DD/YYYY HH:mm';
-
-    this.lineChart = new Chart(this.chartCanvas.nativeElement, {
-      type: 'line',
-      data: {
-        datasets: [
-          {
-            label: "Price",
-            fill: false,
-            data: this.dataset1.data,
-            backgroundColor: "rgba(75,192,192, 1)",
-            pointRadius: 1
-          }
-        ]
-      },
-      options: {
-        legend: {
-          display: false
-        },
-        scales: {
-          xAxes: [{
-            type: 'time',
-            time: {
-              parser: timeFormat
-            }
-          }]
-        }
-      }
-    });
+    // const timeFormat = 'MM/DD/YYYY HH:mm';
+    //
+    // this.lineChart = new Chart(this.chartCanvas.nativeElement, {
+    //   type: 'line',
+    //   data: {
+    //     datasets: [
+    //       {
+    //         label: "Price",
+    //         fill: false,
+    //         data: this.dataset1.data,
+    //         backgroundColor: "rgba(75,192,192, 1)",
+    //         pointRadius: 1
+    //       }
+    //     ]
+    //   },
+    //   options: {
+    //     legend: {
+    //       display: false
+    //     },
+    //     scales: {
+    //       xAxes: [{
+    //         type: 'time',
+    //         time: {
+    //           parser: timeFormat
+    //         }
+    //       }]
+    //     }
+    //   }
+    // });
 
     // this.dataset$.filter(datasets => !isEmpty(datasets)).subscribe(datasets => {
     //   const ci = this.lineChart;

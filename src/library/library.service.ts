@@ -31,4 +31,65 @@ export class LibraryService {
     };
     return this.httpClient.get<any>(mars_api_url, httpOptions);
   }
+
+  getTransportationJSON(){
+    let json = this.httpClient.get('../../assets/json/transportation-cost.json');
+    json.subscribe(data => {
+      console.log(data);
+    });
+    return json;
+
+  }
+
+  getAuctionTable(){
+    let json = this.httpClient.get('../../assets/json/auction-table.json');
+    json.subscribe(data => {
+      console.log(data);
+    });
+    return json;
+  }
+
+  getAuctionData(slugIds){
+    console.log("get auction data");
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': 'Basic ' + btoa(mars_api_key + ':' + password),
+        'cache-control': 'no-cache'
+      })
+    };
+    let responses = [];
+    let urls = [];
+    slugIds.forEach(function(current){
+      urls.push(mars_api_url+'/'+current);
+    });
+    let httpClient = this.httpClient;
+
+    /* Try 2 - put observables in a list and then forkJoin them IT WORKS WOOHOO PTL */
+    urls.forEach(function(current){
+      responses.push(httpClient.get(current, httpOptions));
+    });
+    //console.log(responses);
+    let testResponses = [];
+    for(let i=0; i<5; i++){
+      testResponses.push(responses[i]);
+    }
+
+    let responses$ = Observable.forkJoin(testResponses).map((data: any[]) => {
+      let responseTable = {};
+      console.log(data);
+      data.forEach(function(current, index) {
+        responseTable[slugIds[index]] = current;
+      });
+      return responseTable;
+    });
+
+    responses$.subscribe(
+      values => {
+        console.log(values);
+      }
+    );
+    return responses$;
+  }
+
+
 }

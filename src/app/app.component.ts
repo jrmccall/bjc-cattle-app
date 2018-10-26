@@ -7,6 +7,8 @@ import { HomePage } from '../pages/home/home';
 import {StatesPage} from "../pages/states/states";
 import {MapPage} from "../pages/map/map";
 import {LibraryActions} from "../library/library.actions";
+import {AuctionInfoTableProvider} from "../providers/auction-info-table-provider";
+import {StartPage} from "../pages/start/start";
 
 @Component({
   templateUrl: 'app.html'
@@ -14,11 +16,11 @@ import {LibraryActions} from "../library/library.actions";
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = StartPage;
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private _libraryActions: LibraryActions) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private _libraryActions: LibraryActions, public auctionTable: AuctionInfoTableProvider) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -38,6 +40,8 @@ export class MyApp {
       this.splashScreen.hide();
     });
     this._libraryActions.loadAll();
+    //this._libraryActions.loadAuctionTable();
+    //this.auctionTable.getAuctionTable();
   }
 
   openPage(page) {

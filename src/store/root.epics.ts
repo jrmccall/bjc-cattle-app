@@ -12,6 +12,7 @@ export class RootEpics {
   public combineEpics() {
     return combineEpics(
       this._libraryEpics.loadAll(LibraryActions.LOAD_ALL),
+      this._libraryEpics.getAuctionData(LibraryActions.GET_AUCTION_DATA)
 
     );
   }

@@ -1,0 +1,32 @@
+{
+  "1214": {
+    "slug_id": "1214",
+    "toTN": {
+      "miles": "300",
+      "gas": "2.45",
+      "overhead": "200",
+      "totalCost": "1000"
+    },
+    "toKC": {
+      "miles": "300",
+      "gas": "2.45",
+      "overhead": "200",
+      "totalCost": "1000"
+    }
+  },
+  "1237": {
+    "slug_id": "1237",
+    "toTN":{
+      "miles": "300",
+      "gas": "2.45",
+      "overhead": "200",
+      "totalCost": "1000"
+    },
+    "toKC": {
+      "miles": "300",
+      "gas": "2.45",
+      "overhead": "200",
+      "totalCost": "1000"
+    }
+  }
+}

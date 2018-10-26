@@ -12,9 +12,19 @@ page-auctions {
     background-size: cover;
   }
 
-  .transparent-items button{
-    background-color: rgba(0,0,0,0);
+  .transparent-items {
+    background-color: rgba(0,0,0,0.3);
     color: white;
     font-weight: bold;
+    //text-align: center;
+  }
+
+  .auction-list {
+    font-size: 1.2em;
+    padding-bottom: 10px;
+  }
+
+  .auction-header {
+    font-size: 2em;
   }
 }

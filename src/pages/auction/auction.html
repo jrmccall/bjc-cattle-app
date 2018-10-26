@@ -8,17 +8,25 @@
 
   <ion-navbar>
     <ion-title>Auction</ion-title>
+
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <button ion-button (click)="presentTimePrompt()">Time</button>
-  <button ion-button (click)="presentTypePrompt()">Type</button>
-  <button ion-button (click)="presentTestPrompt()">Test</button>
-  <div class="chart">
-    <canvas #chartCanvas></canvas>
+
+  <div class="address">
+    <p>Auction Name: {{(auctionInfo$ | async)?.name}}</p>
+    <p>Address: {{(auctionInfo$ | async)?.address}}</p>
+    <p>City, State: {{(auctionInfo$ | async)?.city}}, {{(auctionInfo$ | async)?.state}}</p>
+    <p>Zip: {{(auctionInfo$ | async)?.zip}}</p>
   </div>
+  <!--<button ion-button (click)="presentTimePrompt()">Time</button>-->
+  <!--<button ion-button (click)="presentTypePrompt()">Type</button>-->
+  <!--<button ion-button (click)="presentTestPrompt()">Test</button>-->
+  <!--<div class="chart">-->
+    <!--<canvas #chartCanvas></canvas>-->
+  <!--</div>-->
 
 </ion-content>

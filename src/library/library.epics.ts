@@ -20,17 +20,39 @@ export class LibraryEpics {
       .switchMap((a: IAction) =>
         Observable.forkJoin(
           this._service.getGlobalData(),
-          this._service.getMARSData()
+          this._service.getMARSData(),
+          this._service.getTransportationJSON(),
+          this._service.getAuctionTable()
         )
           .map((data: any[]) => AjaxTrio.getSuccessAction(
             ajaxTrio,
             {
               globalData: data[0],
-              MARSData: data[1]
+              MARSData: data[1],
+              transportationData: data[2],
+              auctionTable: data[3]
             }
           ))
           .catch(response => [AjaxTrio.getErrorAction(ajaxTrio, response.status)])
       );
   }
+
+  getAuctionData(ajaxTrio: AjaxTrio) {
+    return action$ => action$
+      .ofType(ajaxTrio.REQUEST)
+      .switchMap((a: IAction) => this._service.getAuctionData(a.payload.slugIds)
+        .map((auctionData: any[]) => AjaxTrio.getSuccessAction(ajaxTrio, {auctionData}))
+        .catch(response => [AjaxTrio.getErrorAction(ajaxTrio, response.status)])
+      );
+  }
+
+  // getAuctionTable(ajaxTrio: AjaxTrio) {
+  //   return action$ => action$
+  //     .ofType(ajaxTrio.REQUEST)
+  //     .switchMap((a: IAction) => this._service.getAuctionTable()
+  //       .map((auctionTable: any[]) => AjaxTrio.getSuccessAction(ajaxTrio, {auctionTable}))
+  //       .catch(response => [AjaxTrio.getErrorAction(ajaxTrio, response.status)])
+  //     );
+  // }
 
 }

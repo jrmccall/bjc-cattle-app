@@ -13,9 +13,18 @@ page-states {
   }
 
   .transparent-items button{
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(0,0,0,0.3);
     color: white;
     font-weight: bold;
+  }
+
+  .state-list {
+    font-size: 1.2em;
+    padding-bottom: 10px;
+  }
+
+  .state-header {
+    font-size: 2em;
   }
 }
 
