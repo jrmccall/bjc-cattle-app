@@ -10,7 +10,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import {StatesPage} from "../pages/states/states";
 import {AuctionsPage} from "../pages/auctions/auctions";
 import {MapPage} from "../pages/map/map";
-import {MARSProvider} from "../providers/MARS-provider";
 import {AuctionPage} from "../pages/auction/auction";
 import {LibraryModule} from "../library/library.module";
 import {StoreModule} from '../store/store.module';
@@ -53,7 +52,6 @@ import {AuctionDataUtility} from "../utility/auctionDataUtility";
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    MARSProvider,
     LibraryModule,
     AuctionInfoTableProvider,
     AuctionDataUtility
