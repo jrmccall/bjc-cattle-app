@@ -1,3 +1,45 @@
 page-map {
+  img {
+    max-width: 100%;
+    height: auto;
+  }
 
+  .img-overlay-wrap {
+    position: relative;
+    display: inline-block; /* <= shrinks container to image size */
+    transition: transform 150ms ease-in-out;
+  }
+
+  .img-overlay-wrap img { /* <= optional, for responsiveness */
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .img-overlay-wrap svg {
+    position: absolute;
+    //top: 36%;
+    //left: 52.5%;
+    margin:0;
+  }
+
+  //@media (min-aspect-ratio: 2/1) {
+  //  .img-overlay-wrap svg {
+  //    bottom: 50%;
+  //    left: 46.875%;
+  //    margin-bottom: 1.25vw;
+  //  }
+  //}
+  //
+  //@media (max-aspect-ratio: 2/1) {
+  //  .img-overlay-wrap svg {
+  //    bottom: 52.5%;
+  //    left: 50%;
+  //    margin-left: -6.25vh;
+  //  }
+  //}
+
+  //.img-overlay-wrap svg:hover {
+  //  fill: green;
+  //}
 }

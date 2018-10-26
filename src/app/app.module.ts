@@ -15,7 +15,10 @@ import {AuctionPage} from "../pages/auction/auction";
 import {LibraryModule} from "../library/library.module";
 import {StoreModule} from '../store/store.module';
 import {HttpClientModule} from "@angular/common/http";
-
+import {AuctionInfoPopover} from "../pages/auction-info-popover/auction-info-popover";
+import {AuctionInfoTableProvider} from "../providers/auction-info-table-provider";
+import {StartPage} from "../pages/start/start";
+import {AuctionDataUtility} from "../utility/auctionDataUtility";
 
 @NgModule({
   declarations: [
@@ -24,7 +27,9 @@ import {HttpClientModule} from "@angular/common/http";
     StatesPage,
     AuctionsPage,
     MapPage,
-    AuctionPage
+    AuctionPage,
+    AuctionInfoPopover,
+    StartPage
   ],
   imports: [
     BrowserModule,
@@ -40,14 +45,18 @@ import {HttpClientModule} from "@angular/common/http";
     StatesPage,
     AuctionsPage,
     MapPage,
-    AuctionPage
+    AuctionPage,
+    AuctionInfoPopover,
+    StartPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     MARSProvider,
-    LibraryModule
+    LibraryModule,
+    AuctionInfoTableProvider,
+    AuctionDataUtility
   ]
 })
 export class AppModule {}

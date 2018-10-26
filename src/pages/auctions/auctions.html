@@ -7,14 +7,33 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{state.name}} Auctions</ion-title>
+    <ion-title>{{state}} Auctions</ion-title>
+    <ion-buttons padding-right end>
+      <button ion-button icon-only (click)="changeDisplayType()">
+        <ion-icon name="{{iconType}}"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding class="bg">
-  <ion-list class="transparent-items">
-    <button ion-item *ngFor="let auction of auctions" (click)="pushAuctionPage(auction)">{{auction.name}}</button>
-  </ion-list>
+
+  <ion-row class="transparent-items auction-header">
+    <ion-col >Auction</ion-col>
+    <ion-col  *ngIf="(displayType$ | async)=='steer'" (click)="sortByAvgSteerPrice()">Average/Median <br/> Steer Price (per Cwt)</ion-col>
+    <ion-col  *ngIf="(displayType$ | async)=='heifer'" (click)="sortByAvgHeiferPrice()">Average/Median <br/> Heifer Price (per Cwt)</ion-col>
+    <ion-col  *ngIf="(displayType$ | async)=='steer'">Record Count</ion-col>
+    <ion-col  *ngIf="(displayType$ | async)=='heifer'">Record Count</ion-col>
+    <ion-col >Last Report Date</ion-col>
+  </ion-row>
+  <ion-row class="transparent-items auction-list" *ngFor="let auction of auctionDisplayList$ | async" (click)="pushAuctionPage(auction)">
+    <ion-col >{{auction.name}}</ion-col>
+    <ion-col  *ngIf="(displayType$ | async)=='steer'">${{auction.steerAvgPrice}} / ${{auction.steerMedPrice}}</ion-col>
+    <ion-col  *ngIf="(displayType$ | async)=='heifer'">${{auction.heiferAvgPrice}} / ${{auction.heiferMedPrice}}</ion-col>
+    <ion-col  *ngIf="(displayType$ | async)=='steer'">{{auction.steerCount}}</ion-col>
+    <ion-col  *ngIf="(displayType$ | async)=='heifer'">{{auction.heiferCount}}</ion-col>
+    <ion-col >{{auction.lastReportDate}}</ion-col>
+  </ion-row>
 </ion-content>

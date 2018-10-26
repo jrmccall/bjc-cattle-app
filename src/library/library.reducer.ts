@@ -7,17 +7,29 @@ import {MarsAllReports} from "./mars-all-reports.model";
 export interface ILibraryState {
   error: any;
   isLoading: boolean;
+  sequenceNumber: number;
   datasetTest: ChartTest[];
   globalData: IGlobalData;
   MARSData: MarsAllReports[];
+  auctionTableData: any;
+  auctionData: any;
+  globalAuctionData: any;
+  stateData: any;
+  transportationData: any;
 }
 
 export const INITIAL_STATE: ILibraryState = {
   error: null,
   isLoading: false,
+  sequenceNumber: 0,
   datasetTest: [],
   globalData: null,
-  MARSData: []
+  MARSData: [],
+  auctionTableData: null,
+  auctionData: null,
+  globalAuctionData: null,
+  stateData: null,
+  transportationData: null
 };
 
 export const libraryReducer = (state: ILibraryState = INITIAL_STATE, action: IAction): ILibraryState => {
@@ -28,15 +40,37 @@ export const libraryReducer = (state: ILibraryState = INITIAL_STATE, action: IAc
         ...state,
         error: null,
         isLoading: false,
+        sequenceNumber: 1,
         globalData: action.payload.globalData,
-        MARSData: action.payload.MARSData
+        MARSData: action.payload.MARSData,
+        transportationData: action.payload.transportationData,
+        auctionTableData: action.payload.auctionTable
+        //auctionTableData: action.payload.auctionTableData
       };
     case LibraryActions.LOAD_ALL.REQUEST:
       return {...state, error: null, isLoading: true};
     case LibraryActions.LOAD_ALL.ERROR:
       return {...state, error: action.payload.error, isLoading: false};
+    case LibraryActions.GET_AUCTION_DATA.SUCCESS:
+      return {
+        ...state,
+        error: null,
+        isLoading: false,
+        sequenceNumber: 2,
+        auctionData: action.payload.auctionData
+      };
+    case LibraryActions.GET_AUCTION_DATA.REQUEST:
+      return {...state, error: null, isLoading: true};
+    case LibraryActions.GET_AUCTION_DATA.ERROR:
+      return {...state, error: action.payload.error, isLoading: false};
     case LibraryActions.SET_DATASETTEST:
       return {...state, datasetTest: action.payload.datasetTest, isLoading: false};
+    case LibraryActions.SET_AUCTION_TABLE:
+      return {...state, auctionTableData: action.payload.auctionTableData, isLoading: false};
+    case LibraryActions.SET_GLOBAL_AUCTION_DATA:
+      return {...state, globalAuctionData: action.payload.globalAuctionData, isLoading: false, sequenceNumber: 3};
+    case LibraryActions.SET_STATE_DATA:
+      return {...state, stateData: action.payload.stateData, sequenceNumber: 4};
     default:
       return state;
   }

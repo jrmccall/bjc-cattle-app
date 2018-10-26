@@ -3,6 +3,7 @@ import {NgRedux} from '@angular-redux/store';
 import {IAppState} from '../store/root.reducer';
 import {AjaxTrio} from '../shared/ajaxTrio.class';
 import {ChartTest} from "./chart-test.model";
+import {AuctionInfoTableProvider} from "../providers/auction-info-table-provider";
 
 
 @Injectable()
@@ -14,11 +15,26 @@ export class LibraryActions {
     'Failed to load library'
   );
 
+  static readonly GET_AUCTION_DATA = new AjaxTrio(
+    'GET_AUCTION_DATA',
+    'Loading auction data...',
+    'Failed to load auction data'
+  );
+
   static readonly SET_DATASETTEST =
     'SET_DATASETTEST';
 
+  static readonly SET_GLOBAL_AUCTION_DATA =
+    'SET_GLOBAL_AUCTION_DATA';
 
-  constructor(private _ngRedux: NgRedux<IAppState>) {
+  static readonly SET_STATE_DATA =
+    'SET_STATE_DATA';
+
+  static readonly SET_AUCTION_TABLE =
+    'SET_AUCTION_TABLE';
+
+
+  constructor(private _ngRedux: NgRedux<IAppState>, private auctionInfo: AuctionInfoTableProvider) {
   }
 
   loadAll() {
@@ -31,6 +47,38 @@ export class LibraryActions {
     this._ngRedux.dispatch({
       type: LibraryActions.SET_DATASETTEST,
       payload: {datasetTest}
+    });
+
+  }
+
+  loadAuctionTable(){
+    let auctionTableData = this.auctionInfo.getAuctionTable();
+    console.log(auctionTableData);
+    this._ngRedux.dispatch({
+      type: LibraryActions.SET_AUCTION_TABLE,
+      payload: {auctionTableData}
+    });
+  }
+
+  getAuctionData(slugIds: string[]){
+    AjaxTrio.dispatchRequestAction(
+      this._ngRedux, LibraryActions.GET_AUCTION_DATA, {slugIds});
+  }
+
+  setGlobalAuctionData(globalAuctionData: any){
+
+    this._ngRedux.dispatch({
+      type: LibraryActions.SET_GLOBAL_AUCTION_DATA,
+      payload: {globalAuctionData}
+    });
+
+  }
+
+  setStateData(stateData: any){
+
+    this._ngRedux.dispatch({
+      type: LibraryActions.SET_STATE_DATA,
+      payload: {stateData}
     });
 
   }
