@@ -11,6 +11,11 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>States</ion-title>
+    <ion-buttons padding-right end>
+      <button ion-button icon-only (click)="changeDisplayType()">
+        <ion-icon name="{{iconType}}"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -20,13 +25,15 @@
 
   <ion-row class="transparent-items state-header">
     <ion-col>State</ion-col>
-    <ion-col (click)="sortByAvgSteerPrice()">Average Steer Price</ion-col>
-    <ion-col (click)="sortByAvgHeiferPrice()">Average Heifer Price</ion-col>
+    <ion-col *ngIf="(displayType$ | async)=='steer'" (click)="sortByAvgSteerPrice()">Average Steer Price (per Cwt)</ion-col>
+    <ion-col *ngIf="(displayType$ | async)=='heifer'" (click)="sortByAvgHeiferPrice()">Average Heifer Price (per Cwt)</ion-col>
+    <ion-col>Auction Count</ion-col>
   </ion-row>
   <ion-row class="transparent-items state-list" *ngFor="let state of states$ | async" (click)="pushAuctionsPage(state.auctions)">
     <ion-col>{{state.name}}</ion-col>
-    <ion-col>${{state.steerAvgPrice.toFixed(2)}}</ion-col>
-    <ion-col>${{state.heiferAvgPrice.toFixed(2)}}</ion-col>
+    <ion-col *ngIf="(displayType$ | async)=='steer'">${{state.steerAvgPrice.toFixed(2)}} / ${{state.steerMedian.toFixed(2)}}</ion-col>
+    <ion-col *ngIf="(displayType$ | async)=='heifer'">${{state.heiferAvgPrice.toFixed(2)}} / ${{state.heiferMedian.toFixed(2)}}</ion-col>
+    <ion-col>{{state.count}}</ion-col>
   </ion-row>
 
 </ion-content>

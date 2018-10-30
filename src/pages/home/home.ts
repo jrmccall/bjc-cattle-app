@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import {LibraryActions} from "../../library/library.actions";
 import {select} from "@angular-redux/store";
 import {isEmpty} from 'ramda';
 import {MarsAllReports} from "../../library/mars-all-reports.model";
@@ -16,7 +15,7 @@ export class HomePage {
 
   auctionReports: MarsAllReports[];
 
-  constructor(public navCtrl: NavController, private _libraryActions: LibraryActions) {
+  constructor(public navCtrl: NavController) {
 
   }
 
@@ -25,7 +24,6 @@ export class HomePage {
   }
 
   ionViewWillLeave() {
-    console.log(this.auctionList$);
   }
 
   auctionList$: Observable<MarsAllReports[]> = this.marsReports$.map((reports: MarsAllReports[]) => {
