@@ -10,7 +10,6 @@ import {AuctionDataUtility} from "../../utility/auctionDataUtility";
 
 /**
  * todo: Clean up removal of auction info table provider
- * todo: Push to github
  * todo: Work with transportation json data
  */
 

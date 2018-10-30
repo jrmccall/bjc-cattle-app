@@ -18,10 +18,6 @@ export class LibraryService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getGlobalData(): Observable<IGlobalData> {
-    return this.httpClient.get<IGlobalData>('https://api.coinmarketcap.com/v1/global/'); //.map((response: Response) => response.json());
-  }
-
   getMARSData(): Observable<MarsAllReports[]> {
     const httpOptions = {
       headers: new HttpHeaders({

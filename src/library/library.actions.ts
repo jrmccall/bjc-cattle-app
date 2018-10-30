@@ -21,9 +21,6 @@ export class LibraryActions {
     'Failed to load auction data'
   );
 
-  static readonly SET_DATASETTEST =
-    'SET_DATASETTEST';
-
   static readonly SET_GLOBAL_AUCTION_DATA =
     'SET_GLOBAL_AUCTION_DATA';
 
@@ -40,24 +37,6 @@ export class LibraryActions {
   loadAll() {
     AjaxTrio.dispatchRequestAction(
       this._ngRedux, LibraryActions.LOAD_ALL, {});
-  }
-
-  setDatasetTest(datasetTest: ChartTest[]){
-
-    this._ngRedux.dispatch({
-      type: LibraryActions.SET_DATASETTEST,
-      payload: {datasetTest}
-    });
-
-  }
-
-  loadAuctionTable(){
-    let auctionTableData = this.auctionInfo.getAuctionTable();
-    console.log(auctionTableData);
-    this._ngRedux.dispatch({
-      type: LibraryActions.SET_AUCTION_TABLE,
-      payload: {auctionTableData}
-    });
   }
 
   getAuctionData(slugIds: string[]){

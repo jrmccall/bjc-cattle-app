@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {isEmpty,  last} from "ramda";
 import {Chart} from 'chart.js';
-import { MARSProvider } from "../../providers/MARS-provider";
 import {AuctionPage} from "../auction/auction";
 import {LibraryActions} from "../../library/library.actions";
 import {select} from "@angular-redux/store";
@@ -30,7 +29,7 @@ export class AuctionsPage {
   currentSort$: BehaviorSubject<string> = new BehaviorSubject<string>('steer');
   displayType$: BehaviorSubject<string> = new BehaviorSubject<string>('steer');
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public MARSProv: MARSProvider,
+  constructor(public navCtrl: NavController, public navParams: NavParams,
               private _libraryActions: LibraryActions) {
     this.auctions = this.navParams.data;
     this.state = this.auctions[0].state;
@@ -111,11 +110,6 @@ export class AuctionsPage {
 
   setCurrentSort(sortValue: string){
     this.currentSort$.next(sortValue);
-  }
-
-  checkNaN(value){
-    let isANaN = isNaN(value);
-    return isANaN;
   }
 
   changeDisplayType(){

@@ -8,8 +8,6 @@ export interface ILibraryState {
   error: any;
   isLoading: boolean;
   sequenceNumber: number;
-  datasetTest: ChartTest[];
-  globalData: IGlobalData;
   MARSData: MarsAllReports[];
   auctionTableData: any;
   auctionData: any;
@@ -22,8 +20,6 @@ export const INITIAL_STATE: ILibraryState = {
   error: null,
   isLoading: false,
   sequenceNumber: 0,
-  datasetTest: [],
-  globalData: null,
   MARSData: [],
   auctionTableData: null,
   auctionData: null,
@@ -41,11 +37,9 @@ export const libraryReducer = (state: ILibraryState = INITIAL_STATE, action: IAc
         error: null,
         isLoading: false,
         sequenceNumber: 1,
-        globalData: action.payload.globalData,
         MARSData: action.payload.MARSData,
         transportationData: action.payload.transportationData,
         auctionTableData: action.payload.auctionTable
-        //auctionTableData: action.payload.auctionTableData
       };
     case LibraryActions.LOAD_ALL.REQUEST:
       return {...state, error: null, isLoading: true};
@@ -63,8 +57,6 @@ export const libraryReducer = (state: ILibraryState = INITIAL_STATE, action: IAc
       return {...state, error: null, isLoading: true};
     case LibraryActions.GET_AUCTION_DATA.ERROR:
       return {...state, error: action.payload.error, isLoading: false};
-    case LibraryActions.SET_DATASETTEST:
-      return {...state, datasetTest: action.payload.datasetTest, isLoading: false};
     case LibraryActions.SET_AUCTION_TABLE:
       return {...state, auctionTableData: action.payload.auctionTableData, isLoading: false};
     case LibraryActions.SET_GLOBAL_AUCTION_DATA:
