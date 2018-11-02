@@ -2,7 +2,6 @@
 import {select} from "@angular-redux/store";
 import {Observable} from "rxjs/Rx";
 import {isEmpty} from "ramda";
-import {MarsAllReports} from "../library/mars-all-reports.model";
 
 export class AuctionDataUtility {
 
@@ -133,8 +132,9 @@ export class AuctionDataUtility {
     });
     let median = 0;
     let middle = array.length/2;
+    console.log(middle);
     if(middle%1 != 0){  /* If the result is a fraction due to an odd number of elements --> the middle element is then 0.5 higher than the value of middle */
-      middle += 0.5;
+      middle -= 0.5;
       median = array[middle];
     } else {  /* If the result is a not a fraction due to an even number of elements */
       let m1 = array[middle-1];
@@ -193,13 +193,28 @@ export class AuctionDataUtility {
         let stateKey = '';
         for(stateKey in stateMap){
           if(stateMap.hasOwnProperty(stateKey)){
-            this.findAverageOfState(stateMap[stateKey], auctionData);
+            this.getStateAvgAndMedian(stateMap[stateKey], auctionData);
           }
         }
         console.log(stateMap);
         return stateMap;
     });
     return stateOrg$;
+  }
+
+  getStateAvgAndMedian(state: any, auctionData: any){
+    let steerAvgsForState = [];
+    let heiferAvgsForState = [];
+    state.auctions.forEach(function(current){
+      steerAvgsForState.push(auctionData[current.slug_id].steerAvgPrice);
+      heiferAvgsForState.push(auctionData[current.slug_id].heiferAvgPrice);
+    });
+    state.steerAvgPrice = this.calculateMean(steerAvgsForState);
+    state.heiferAvgPrice = this.calculateMean(heiferAvgsForState);
+    state.steerMedian = this.calculateMedian(steerAvgsForState);
+    state.heiferMedian = this.calculateMedian(heiferAvgsForState);
+    state.count = state.auctions.length;
+
   }
 
   findAverageOfState(state: any, auctionData: any){

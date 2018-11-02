@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {isEmpty,  last} from "ramda";
 import {Chart} from 'chart.js';
 import {AuctionPage} from "../auction/auction";
-import {LibraryActions} from "../../library/library.actions";
 import {select} from "@angular-redux/store";
 import {BehaviorSubject, Observable} from "rxjs/Rx";
 import {isUndefined} from "ionic-angular/util/util";
@@ -19,6 +18,7 @@ export class AuctionsPage {
   @ViewChild('chartCanvas') chartCanvas;
 
   @select(['library', 'globalAuctionData']) globalAuctionData$: Observable<any>;
+  @select(['library', 'transportationData']) transportationData$: Observable<any>;
 
   state: any;
   auctions: any[];
@@ -28,9 +28,9 @@ export class AuctionsPage {
   sortByHeiferPrice$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   currentSort$: BehaviorSubject<string> = new BehaviorSubject<string>('steer');
   displayType$: BehaviorSubject<string> = new BehaviorSubject<string>('steer');
+  transportationCity$: BehaviorSubject<string> = new BehaviorSubject<string>('TN');
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-              private _libraryActions: LibraryActions) {
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.auctions = this.navParams.data;
     this.state = this.auctions[0].state;
   }
@@ -44,24 +44,46 @@ export class AuctionsPage {
     this.sortBySteerPrice$,
     this.sortByHeiferPrice$,
     this.currentSort$,
-    (globalData: any, sortBySteerPrice: boolean, sortByHeiferPrice: boolean, currentSort: string) => {
+    this.transportationData$,
+    (globalData: any, sortBySteerPrice: boolean, sortByHeiferPrice: boolean, currentSort: string,
+     transportationData: any) => {
     if(globalData == null){
       return [];
     }
 
     let displayList = this.auctions.map(function (current) {
       if(globalData.hasOwnProperty(current.slug_id)){
-        let displayData = {};
-        /* Maybe change this format to the .field format */
-        displayData['steerAvgPrice'] = globalData[current.slug_id].steerAvgPrice.toFixed(2);
-        displayData['heiferAvgPrice'] = globalData[current.slug_id].heiferAvgPrice.toFixed(2);
-        displayData['name'] = current.name;
-        displayData['slug_id'] = current.slug_id;
-        displayData['lastReportDate'] = globalData[current.slug_id].lastReportDate;
-        displayData['steerMedPrice'] = globalData[current.slug_id].steerMedPrice.toFixed(2);
-        displayData['heiferMedPrice'] = globalData[current.slug_id].heiferMedPrice.toFixed(2);
-        displayData['steerCount'] = globalData[current.slug_id].steerCount;
-        displayData['heiferCount'] = globalData[current.slug_id].heiferCount;
+        let displayData = {
+          steerAvgPrice: globalData[current.slug_id].steerAvgPrice.toFixed(2),
+          heiferAvgPrice: globalData[current.slug_id].heiferAvgPrice.toFixed(2),
+          name: current.name,
+          slug_id: current.slug_id,
+          lastReportDate: globalData[current.slug_id].lastReportDate,
+          steerMedPrice: globalData[current.slug_id].steerMedPrice.toFixed(2),
+          heiferMedPrice: globalData[current.slug_id].heiferMedPrice.toFixed(2),
+          steerCount: globalData[current.slug_id].steerCount,
+          heiferCount: globalData[current.slug_id].heiferCount,
+          transportation: null
+        };
+        if(transportationData.hasOwnProperty(current.slug_id)){
+          displayData.transportation = transportationData[current.slug_id];
+        } else {
+          displayData.transportation = {
+            "slug_id": "NO DATA",
+            "TN": {
+              "miles": "-",
+              "gas": "-",
+              "overhead": "-",
+              "totalCost": "-"
+            },
+            "KC": {
+              "miles": "-",
+              "gas": "-",
+              "overhead": "-",
+              "totalCost": "-"
+            }
+          }
+        }
         return displayData;
       }
     }).filter(function (current) {
@@ -121,6 +143,17 @@ export class AuctionsPage {
     } else {
       this.iconType = "md-female";
       this.displayType$.next('steer');
+    }
+
+  }
+
+  changeTransportationCity(){
+    let city = '';
+    this.transportationCity$.subscribe(data => city = data);
+    if(city == 'TN'){
+      this.transportationCity$.next('KC');
+    } else {
+      this.transportationCity$.next('TN');
     }
 
   }

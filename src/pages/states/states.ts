@@ -30,9 +30,11 @@ export class StatesPage {
   sortBySteerPrice$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   sortByHeiferPrice$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   currentSort$: BehaviorSubject<string> = new BehaviorSubject<string>('steer');
+  displayType$: BehaviorSubject<string> = new BehaviorSubject<string>('steer');
 
   auctionInfoList: any[];
   stateMap: any;
+  iconType: string = "md-female";
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
 
@@ -76,100 +78,6 @@ export class StatesPage {
     return stateList;
   });
 
-  // auctionList$: Observable<MarsAllReports[]> = this.marsReports$.map((reports: MarsAllReports[]) => {
-  //   if(isEmpty(reports)){
-  //     return null;
-  //   }
-  //   return reports.filter(function(currentReport, index, reportList) {
-  //     if(currentReport.market_types.findIndex(
-  //       function(currentMarketType, index, marketTypeList) {
-  //         return currentMarketType =='Live Auction'
-  //       }) != -1) {
-  //       return currentReport;
-  //     }
-  //   });
-  // });
-
-  // auctionInfoList$: Observable<any[]> = Observable.combineLatest(
-  //   this.auctionList$,
-  //   this.auctionTable$,
-  //   (auctions: MarsAllReports[], auctionTable: any) => {
-  //   if(isEmpty(auctions)){
-  //     return null;
-  //   }
-  //   let auctionFinalList = auctions.map(function(current, index, list){
-  //     let auctionInfo = auctionTable[current.slug_id];
-  //     //console.log(current.slug_id);
-  //     //console.log(auctionInfo);
-  //     return auctionInfo;
-  //   }).sort(function(a,b){
-  //     if(a.state > b.state){
-  //       return 1;
-  //     } else if(a.state < b.state){
-  //       return -1;
-  //     } else{
-  //       return 0;
-  //     }
-  //   });
-  //   this.auctionInfoList = auctionFinalList;
-  //   console.log(auctionFinalList);
-  //   return auctionFinalList;
-  // });
-  //
-  // stateList$: Observable<any[]> = this.auctionInfoList$.map((auctionList: any[]) => {
-  //   if(isEmpty(auctionList)){
-  //     return null;
-  //   }
-  //   let tempState = '';
-  //   return auctionList.filter(function(current, index, list){
-  //     if(current.state != tempState){
-  //       tempState = current.state;
-  //       return current.state;
-  //     }
-  //   });
-  // });
-  //
-  // stateMap$: Observable<any> = this.auctionInfoList$.map((auctionList: any[]) => {
-  //   if(isEmpty(auctionList)){
-  //     return null;
-  //   }
-  //   let map = {};
-  //   let tempState = auctionList[0].state;
-  //   let tempObj = auctionList[0];
-  //   let tempArray = [];
-  //   auctionList.forEach(function(current, index, list){
-  //     if(current.state != tempState){
-  //       map[tempState] = tempArray;
-  //       tempArray = [];
-  //       tempState = current.state;
-  //       tempArray.push(current);
-  //     } else if(current.state == tempState){
-  //       tempArray.push(current);
-  //     }
-  //   });
-  //   //this.stateMap = map;
-  //   return map;
-  // });
-  //
-  // makeStateMap(){
-  //   let map = {};
-  //   let tempState = this.auctionInfoList[0].state;
-  //   let tempObj = this.auctionInfoList[0];
-  //   let tempArray = [];
-  //   this.auctionInfoList.forEach(function(current, index, list){
-  //     if(current.state != tempState || index == (list.length -1)){
-  //       map[tempState] = tempArray;
-  //       tempArray = [];
-  //       tempState = current.state;
-  //       tempArray.push(current);
-  //     } else if(current.state == tempState){
-  //       tempArray.push(current);
-  //     }
-  //   });
-  //   console.log(map);
-  //   return map;
-  // }
-
   sortByAvgSteerPrice(){
     this.setCurrentSort('steer');
     let sortValue = false;
@@ -198,11 +106,21 @@ export class StatesPage {
     this.currentSort$.next(sortValue);
   }
 
+  changeDisplayType(){
+    let displayType = '';
+    this.displayType$.subscribe(type => displayType = type);
+    if(displayType == 'steer'){
+      this.iconType = "md-male";
+      this.displayType$.next('heifer');
+    } else {
+      this.iconType = "md-female";
+      this.displayType$.next('steer');
+    }
+
+  }
+
 
   pushAuctionsPage(auctions: any){
-    // let stateMap = this.makeStateMap();
-    // let auctionListFromState = stateMap[state.state];
-    // console.log(auctionListFromState);
     this.navCtrl.push(AuctionsPage, auctions);
   }
 

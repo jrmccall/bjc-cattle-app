@@ -9,8 +9,8 @@ import {MarsAllReports} from "../../library/mars-all-reports.model";
 import {AuctionDataUtility} from "../../utility/auctionDataUtility";
 
 /**
- * todo: Clean up removal of auction info table provider
- * todo: Work with transportation json data
+ * todo: Get real transportation data
+ * todo: Develop auction page
  */
 
 @IonicPage()
@@ -45,7 +45,6 @@ export class StartPage {
         console.log("initial state --> loadAll has not yet returned");
       } else if(sequenceNumber == 1){
         console.log("State 1 --> loadAll has returned, time to get the auction data");
-        this.executeGetJSONData();
         this.executeGetAuctionData();
       } else if(sequenceNumber == 2){
         console.log("State 2 --> auctionData has returned, time to process the data");
@@ -54,7 +53,7 @@ export class StartPage {
         console.log("State 3 --> globalAuctionData processed, time to process the statedata");
         this.executeStateDataProcessing();
       } else if(sequenceNumber == 4){
-        console.log("Auction data processed and stored successfully");
+        console.log("State 4 -> All data has been processed -> the app can move on to the homepage");
         this.setRootHomePage();
       }
     });
@@ -98,7 +97,7 @@ export class StartPage {
       return auctionFinalList;
     });
 
-
+  /* -------------------------Execute Methods---------------------------*/
 
   executeGetAuctionData(){
     console.log("execute");
@@ -126,13 +125,7 @@ export class StartPage {
     this._libraryActions.setStateData(stateData);
   }
 
-  executeGetJSONData(){
-
-  }
-
-  setRootHomePage(){
-    this.navCtrl.setRoot(HomePage);
-  }
+  /* -------------------------Helper Methods---------------------------*/
 
   makeSlugList(){
     let auctions = [];
@@ -141,6 +134,12 @@ export class StartPage {
     return auctions.map(function(current){
       return current.slug_id;
     });
+  }
+
+  /* -------------------------Navigation Methods---------------------------*/
+
+  setRootHomePage(){
+    this.navCtrl.setRoot(HomePage);
   }
 
 }

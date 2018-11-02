@@ -28,41 +28,13 @@ export class AuctionPage {
 
   //@ViewChild('chartCanvas') chartCanvas;
 
-  @select(['library', 'togglecurrency']) togglecurrency$: Observable<string>;
   @select(['library', 'auctionTableData']) auctionTableData$: Observable<any>;
 
 
   auction: any;
   lineChart: any;
-  dataset1: any = {
-    'data': [
-      {
-        'x': 1534716265,
-        'y': 1
-      },
-      {
-        'x': 1534802665,
-        'y': 9
-      }
-    ]
-  };
-  dataset2: any = {
-    "data": [
-      {
-        'x': 1534802665,
-        'y': 9
-      },
-      {
-        'x': 1534716265,
-        'y': 2
-      }
-    ]
-  };
 
-  dataset: any;
   slug_id: string;
-
-  data$: BehaviorSubject<ChartTest[]> = new BehaviorSubject<ChartTest[]>(this.dataset1);
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private _libraryActions: LibraryActions) {
     this.slug_id = this.navParams.data;
@@ -73,15 +45,6 @@ export class AuctionPage {
       return null;
     }
     return auctionTable[this.slug_id];
-  });
-
-  datasetO$: Observable<ChartTest[]> = this.getDataSet();
-
-  dataset$: Observable<ChartTest[]> = this.data$.map((dataset: ChartTest[]) => {
-    if(isEmpty(dataset)){
-      return [];
-    }
-    return dataset;
   });
 
 
@@ -178,7 +141,6 @@ export class AuctionPage {
       text: 'Ok',
       handler: (data: any) => {
         console.log('Radio data:', data);
-        this.getFakeData(data);
       }
     });
 
@@ -213,8 +175,6 @@ export class AuctionPage {
       text: 'Ok',
       handler: (data: any) => {
         console.log('Radio data:', data);
-        //this.testRadioOpen = false;
-        //this.testRadioResult = data;
       }
     });
 
@@ -243,36 +203,10 @@ export class AuctionPage {
       text: 'Ok',
       handler: (data: any) => {
         console.log('Radio data:', data);
-        this.getFakeData(data);
-        //this.testRadioOpen = false;
-        //this.testRadioResult = data;
       }
     });
 
     alert.present();
-  }
-
-  getFakeData(code: number){
-    console.log(code);
-    if(code == 1){
-      //1 day
-      this.data$.next(this.dataset1);
-      this.lineChart.update();
-    } else if(code == 2){
-      //1 week
-      this.dataset1 = this.dataset2;
-      this.loadChart();
-      this.data$.next(this.dataset2);
-      //this.lineChart.update();
-      console.log(this.datasetO$);
-      console.log(this.dataset$);
-      console.log(this.data$);
-    }
-  }
-
-  getDataSet(): Observable<ChartTest[]> {
-    console.log(this.dataset1);
-    return Observable.of(this.dataset1.data);
   }
 
 }
