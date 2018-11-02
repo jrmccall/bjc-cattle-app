@@ -137,8 +137,8 @@ export class AuctionDataUtility {
       middle -= 0.5;
       median = array[middle];
     } else {  /* If the result is a not a fraction due to an even number of elements */
-      let m1 = array[middle-1];
-      let m2 = array[middle+1];
+      let m1 = array[middle-2];
+      let m2 = array[middle-1];
       median = (m1+m2)/2;
     }
     return median;

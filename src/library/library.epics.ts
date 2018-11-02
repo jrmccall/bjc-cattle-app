@@ -21,14 +21,16 @@ export class LibraryEpics {
         Observable.forkJoin(
           this._service.getMARSData(),
           this._service.getTransportationJSON(),
-          this._service.getAuctionTable()
+          this._service.getAuctionTable(),
+          this._service.getUserConfig()
         )
           .map((data: any[]) => AjaxTrio.getSuccessAction(
             ajaxTrio,
             {
               MARSData: data[0],
               transportationData: data[1],
-              auctionTable: data[2]
+              auctionTable: data[2],
+              userConfig: data[3]
             }
           ))
           .catch(response => [AjaxTrio.getErrorAction(ajaxTrio, response.status)])

@@ -30,7 +30,7 @@
     <ion-col  *ngIf="(displayType$ | async)=='steer'">Record Count</ion-col>
     <ion-col  *ngIf="(displayType$ | async)=='heifer'">Record Count</ion-col>
     <ion-col >Last Report Date</ion-col>
-    <ion-col> Transporation Cost</ion-col>
+    <ion-col (click)="sortByTransportation()"> Median Price w Transportation <small>[{{(transportationCity$ | async).toUpperCase()}}]</small></ion-col>
   </ion-row>
   <ion-row class="transparent-items auction-list" *ngFor="let auction of auctionDisplayList$ | async" (click)="pushAuctionPage(auction)">
     <ion-col >{{auction.name}}</ion-col>
@@ -39,7 +39,10 @@
     <ion-col  *ngIf="(displayType$ | async)=='steer'">{{auction.steerCount}}</ion-col>
     <ion-col  *ngIf="(displayType$ | async)=='heifer'">{{auction.heiferCount}}</ion-col>
     <ion-col >{{auction.lastReportDate}}</ion-col>
-    <ion-col *ngIf="(transportationCity$ | async)=='TN'"> {{auction.transportation.TN.totalCost}}</ion-col>
-    <ion-col *ngIf="(transportationCity$ | async)=='KC'"> {{auction.transportation.KC.totalCost}}</ion-col>
+    <ion-col *ngIf="(displayType$ | async)=='steer' && (transportationCity$ | async)=='drummonds'">${{auction.transportation.drummonds.steer}}</ion-col>
+    <ion-col *ngIf="(displayType$ | async)=='heifer' && (transportationCity$ | async)=='drummonds'">${{auction.transportation.drummonds.heifer}}</ion-col>
+
+    <ion-col *ngIf="(displayType$ | async)=='steer' && (transportationCity$ | async)=='yatesCenter'">${{auction.transportation.yatesCenter.steer}}</ion-col>
+    <ion-col *ngIf="(displayType$ | async)=='heifer' && (transportationCity$ | async)=='yatesCenter'">${{auction.transportation.yatesCenter.heifer}}</ion-col>
   </ion-row>
 </ion-content>

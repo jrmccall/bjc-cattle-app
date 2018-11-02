@@ -26,18 +26,28 @@ import {LibraryActions} from "../../library/library.actions";
 })
 export class AuctionPage {
 
-  //@ViewChild('chartCanvas') chartCanvas;
+  @ViewChild('chartCanvas') chartCanvas;
 
   @select(['library', 'auctionTableData']) auctionTableData$: Observable<any>;
+  @select(['library', 'auctionData']) auctionData$: Observable<any>;
+
+  displayType$: BehaviorSubject<string> = new BehaviorSubject<string>('steer');
 
 
   auction: any;
   lineChart: any;
+  iconType: string = "md-female";
 
   slug_id: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private _libraryActions: LibraryActions) {
     this.slug_id = this.navParams.data;
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad AuctionPage');
+
+    this.loadChart();
   }
 
   auctionInfo$: Observable<any> = this.auctionTableData$.map((auctionTable: any) => {
@@ -47,51 +57,210 @@ export class AuctionPage {
     return auctionTable[this.slug_id];
   });
 
+  /* todo: develop an organized way of organizing historical data for all the desired groupings */
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AuctionPage');
+  /* This is to separate the raw aucton data into two groups: steers and heifers */
 
-    this.loadChart();
+  steerData$: Observable<any[]> = this.auctionData$.map(
+    (auctionData: any) => {
+      if(auctionData == null){
+        return [];
+      }
+      let steers = [];
+      if(auctionData.hasOwnProperty(this.slug_id)){
+        let currentAuctionData = auctionData[this.slug_id].results;
+        steers = this.getDataForType(currentAuctionData, 'Steers');
+      } else {
+        return [];
+      }
+
+      return steers;
+  });
+
+  heiferData$: Observable<any[]> = this.auctionData$.map(
+    (auctionData: any) => {
+      if(auctionData == null){
+        return [];
+      }
+      let heifers = [];
+      if(auctionData.hasOwnProperty(this.slug_id)){
+        let currentAuctionData = auctionData[this.slug_id].results;
+        heifers = this.getDataForType(currentAuctionData, 'Heifers');
+      } else {
+        return [];
+      }
+
+      return heifers;
+    });
+
+  /* This is to the data for the steers and heifers individually to display on the chart
+   * without having to do the separate the data again. Additionally, the filters
+   * can be applied here to the datasets separately without having to have a ton of logic
+   * put all together in one observable.
+   */
+
+  steerDisplay$: Observable<any[]> = this.steerData$.map((steerData: any[]) => {
+    if(isEmpty(steerData)){
+      return [];
+    }
+    let steerDataByDate = [];
+    let currentDate = steerData[0].report_date;
+    let currentSum = 0;
+    let count = 0;
+    steerData.forEach(function(current){
+      if(current.report_date != currentDate){
+        let currentAvg = currentSum/count;
+        let dataForArray = {
+          x: new Date(currentDate),
+          y: currentAvg
+        };
+        steerDataByDate.push(dataForArray);
+        currentDate = current.report_date;
+        currentSum = 0;
+        count = 0;
+      }
+      currentSum += +current.avg_price;
+      count++;
+    });
+
+    steerDataByDate.sort(function (a,b) {
+      return a.x.getTime()-b.x.getTime();
+    });
+    return steerDataByDate;
+  });
+
+  heiferDisplay$: Observable<any[]> = this.heiferData$.map((heiferData: any[]) => {
+    if(isEmpty(heiferData)){
+      return [];
+    }
+    let heiferDataByDate = [];
+    let currentDate = heiferData[0].report_date;
+    let currentSum = 0;
+    let count = 0;
+    heiferData.forEach(function(current){
+      if(current.report_date != currentDate){
+        let currentAvg = currentSum/count;
+        /* Formatting of x and y necessary for the chart */
+        let dataForArray = {
+          x: new Date(currentDate),
+          y: currentAvg
+        };
+        heiferDataByDate.push(dataForArray);
+        currentDate = current.report_date;
+        currentSum = 0;
+        count = 0;
+      }
+      currentSum += +current.avg_price;
+      count++;
+    });
+
+    heiferDataByDate.sort(function (a,b) {
+      return a.x.getTime()-b.x.getTime();
+    });
+    return heiferDataByDate;
+  });
+
+  /* This is where the heiferDisplay$ and steerDisplay$ will be combined in order to display
+   * whichever we wish on the chart
+   */
+
+  auctionChartData$: Observable<any[]> = Observable.combineLatest(
+    this.steerDisplay$,
+    this.heiferDisplay$,
+    this.displayType$,
+    (steerDisplay: any[], heiferDisplay: any[], displayType: string) => {
+      if(isEmpty(steerDisplay) || isEmpty(heiferDisplay)){
+        return [];
+      }
+
+      switch(displayType) {
+        case 'steer':
+          return steerDisplay;
+        case 'heifer':
+          return heiferDisplay;
+        default:
+          return steerDisplay;
+      }
+  });
+
+  /*
+   * @param type should be 'Steers' or 'Heifers'
+   */
+  getDataForType(auctionDataArray: any[], type){
+    let typeData = [];
+    auctionDataArray.forEach(function(current){
+      if(current._class == type){
+        typeData.push(current);
+      }
+    });
+    return typeData;
   }
 
 
   loadChart(){
 
-    // const timeFormat = 'MM/DD/YYYY HH:mm';
-    //
-    // this.lineChart = new Chart(this.chartCanvas.nativeElement, {
-    //   type: 'line',
-    //   data: {
-    //     datasets: [
-    //       {
-    //         label: "Price",
-    //         fill: false,
-    //         data: this.dataset1.data,
-    //         backgroundColor: "rgba(75,192,192, 1)",
-    //         pointRadius: 1
-    //       }
-    //     ]
-    //   },
-    //   options: {
-    //     legend: {
-    //       display: false
-    //     },
-    //     scales: {
-    //       xAxes: [{
-    //         type: 'time',
-    //         time: {
-    //           parser: timeFormat
-    //         }
-    //       }]
-    //     }
-    //   }
-    // });
+    const timeFormat = 'MM/DD/YYYY';
 
-    // this.dataset$.filter(datasets => !isEmpty(datasets)).subscribe(datasets => {
-    //   const ci = this.lineChart;
-    //   ci.data.datasets[0].data = datasets;
-    //   ci.update();
-    // });
+    this.lineChart = new Chart(this.chartCanvas.nativeElement, {
+      type: 'line',
+      data: {
+        datasets: [
+          {
+            label: "Price",
+            fill: false,
+            data: [],
+            backgroundColor: "rgba(75,192,192, 1)",
+            pointRadius: 1
+          }
+        ]
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'Average Price'
+        },
+        legend: {
+          display: false
+        },
+        scales: {
+          xAxes: [{
+            type: 'time',
+            time: {
+              parser: timeFormat
+            },
+            scaleLabel: {
+              display: true,
+              labelString: 'Time'
+            }
+          }],
+          yAxes: [{
+            scaleLabel: {
+              display: true,
+              labelString: 'Average Price (Cwt)'
+            }
+          }]
+        }
+      }
+    });
+
+    this.auctionChartData$.filter(datasets => !isEmpty(datasets)).subscribe(datasets => {
+      const ci = this.lineChart;
+      ci.data.datasets[0].data = datasets;
+      ci.update();
+    });
+
+  }
+
+  changeDisplayType(){
+    let displayType = '';
+    this.displayType$.subscribe(type => displayType = type);
+    if(displayType == 'steer'){
+      this.iconType = "md-male";
+      this.displayType$.next('heifer');
+    } else {
+      this.iconType = "md-female";
+      this.displayType$.next('steer');
+    }
 
   }
 

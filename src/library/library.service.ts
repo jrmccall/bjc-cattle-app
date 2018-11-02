@@ -45,6 +45,14 @@ export class LibraryService {
     return json;
   }
 
+  getUserConfig(){
+    let json = this.httpClient.get('../../assets/json/user-config.json');
+    json.subscribe(data => {
+      console.log(data);
+    });
+    return json;
+  }
+
   getAuctionData(slugIds){
     console.log("get auction data");
     const httpOptions = {

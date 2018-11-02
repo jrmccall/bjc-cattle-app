@@ -5,7 +5,11 @@
     "address": "28598 US Highway 136",
     "city": "Unionville",
     "state": "MO",
-    "zip": "63565"
+    "zip": "63565",
+    "transportation": {
+      "drummonds": "522",
+      "yatesCenter": "271"
+    }
   },
   "1237": {
     "slug_id": "1237",
@@ -13,7 +17,11 @@
     "address": "28598 US Highway, 136",
     "city": "Unionville",
     "state": "MO",
-    "zip": "63565"
+    "zip": "63565",
+    "transportation": {
+      "drummonds": "522",
+      "yatesCenter": "271"
+    }
   },
   "1215": {
     "slug_id": "1215",
@@ -21,7 +29,11 @@
     "address": "5914, 6821 W Independence Dr",
     "city": "Springfield",
     "state": "MO",
-    "zip": "65802"
+    "zip": "65802",
+    "transportation": {
+      "drummonds": "320",
+      "yatesCenter": "174"
+    }
   },
   "1255": {
     "slug_id": "1255",
@@ -29,7 +41,11 @@
     "address": "5914, 6821 W Independence Dr",
     "city": "Springfield",
     "state": "MO",
-    "zip": "65802"
+    "zip": "65802",
+    "transportation": {
+      "drummonds": "320",
+      "yatesCenter": "174"
+    }
   },
   "1221": {
     "slug_id": "1221",
@@ -37,7 +53,11 @@
     "address": "29262 MO-149",
     "city": "New Cambria",
     "state": "MO",
-    "zip": "63558"
+    "zip": "63558",
+    "transportation": {
+      "drummonds": "449",
+      "yatesCenter": "253"
+    }
   },
   "1235": {
     "slug_id": "1235",
@@ -45,7 +65,11 @@
     "address": "29262 MO-149",
     "city": "New Cambria",
     "state": "MO",
-    "zip": "63558"
+    "zip": "63558",
+    "transportation": {
+      "drummonds": "449",
+      "yatesCenter": "253"
+    }
   },
   "1248": {
     "slug_id": "1248",
@@ -53,7 +77,11 @@
     "address": "29262 MO-149",
     "city": "New Cambria",
     "state": "MO",
-    "zip": "63558"
+    "zip": "63558",
+    "transportation": {
+      "drummonds": "449",
+      "yatesCenter": "253"
+    }
   },
   "1226": {
     "slug_id": "1226",
@@ -61,7 +89,11 @@
     "address": "10131 Cimarron Rd",
     "city": "Carthage",
     "state": "MO",
-    "zip": "64836"
+    "zip": "64836",
+    "transportation": {
+      "drummonds": "367",
+      "yatesCenter": "120"
+    }
   },
   "1245": {
     "slug_id": "1245",
@@ -69,7 +101,11 @@
     "address": "10131 Cimarron Rd",
     "city": "Carthage",
     "state": "MO",
-    "zip": "64836"
+    "zip": "64836",
+    "transportation": {
+      "drummonds": "367",
+      "yatesCenter": "120"
+    }
   },
   "1229": {
     "slug_id": "1229",
@@ -77,7 +113,11 @@
     "address": "3292 US Hwy 63",
     "city": "West Plains",
     "state": "MO",
-    "zip": "65775"
+    "zip": "65775",
+    "transportation": {
+      "drummonds": "203",
+      "yatesCenter": ""
+    }
   },
   "1249": {
     "slug_id": "1249",
@@ -85,7 +125,11 @@
     "address": "3292 US Hwy 63",
     "city": "West Plains",
     "state": "MO",
-    "zip": "65775"
+    "zip": "65775",
+    "transportation": {
+      "drummonds": "203",
+      "yatesCenter": "286"
+    }
   },
   "1651": {
     "slug_id": "1651",
@@ -93,7 +137,11 @@
     "address": "3292 US Hwy 63",
     "city": "West Plains",
     "state": "MO",
-    "zip": "65775"
+    "zip": "65775",
+    "transportation": {
+      "drummonds": "203",
+      "yatesCenter": "286"
+    }
   },
   "1231": {
     "slug_id": "1231",
@@ -101,7 +149,11 @@
     "address": "19037 MO-129",
     "city": "Green City",
     "state": "MO",
-    "zip": "64545"
+    "zip": "63545",
+    "transportation": {
+      "drummonds": "496",
+      "yatesCenter": "258"
+    }
   },
   "1234": {
     "slug_id": "1234",
@@ -109,7 +161,11 @@
     "address": "19037 MO-129",
     "city": "Green City",
     "state": "MO",
-    "zip": "64545"
+    "zip": "63545",
+    "transportation": {
+      "drummonds": "496",
+      "yatesCenter": "258"
+    }
   },
   "1254": {
     "slug_id": "1254",
@@ -117,7 +173,11 @@
     "address": "19037 MO-129",
     "city": "Green City",
     "state": "MO",
-    "zip": "64545"
+    "zip": "63545",
+    "transportation": {
+      "drummonds": "496",
+      "yatesCenter": "258"
+    }
   },
   "1276": {
     "slug_id": "1276",
@@ -125,7 +185,11 @@
     "address": "7200 Rte 66",
     "city": "El Reno",
     "state": "OK",
-    "zip": "73036"
+    "zip": "73036",
+    "transportation": {
+      "drummonds": "522",
+      "yatesCenter": "281"
+    }
   },
   "1278": {
     "slug_id": "1278",
@@ -133,7 +197,11 @@
     "address": "7200 Rte 66",
     "city": "El Reno",
     "state": "OK",
-    "zip": "73036"
+    "zip": "73036",
+    "transportation": {
+      "drummonds": "522",
+      "yatesCenter": "281"
+    }
   },
   "1280": {
     "slug_id": "1280",
@@ -141,7 +209,11 @@
     "address": "7200 Rte 66",
     "city": "El Reno",
     "state": "OK",
-    "zip": "73036"
+    "zip": "73036",
+    "transportation": {
+      "drummonds": "522",
+      "yatesCenter": "281"
+    }
   },
   "1281": {
     "slug_id": "1281",
@@ -149,7 +221,11 @@
     "address": "7200 Rte 66",
     "city": "El Reno",
     "state": "OK",
-    "zip": "73036"
+    "zip": "73036",
+    "transportation": {
+      "drummonds": "522",
+      "yatesCenter": "281"
+    }
   },
   "1290": {
     "slug_id": "1290",
@@ -157,7 +233,11 @@
     "address": "107 Cattlemens Dr, 8808",
     "city": "Santa Teresa",
     "state": "NM",
-    "zip": "88008"
+    "zip": "88008",
+    "transportation": {
+      "drummonds": "1175",
+      "yatesCenter": "887"
+    }
   },
   "1418": {
     "slug_id": "1418",
@@ -165,7 +245,11 @@
     "address": "4557 US-441",
     "city": "Lake City",
     "state": "FL",
-    "zip": "32025"
+    "zip": "32025",
+    "transportation": {
+      "drummonds": "707",
+      "yatesCenter": "1136"
+    }
   },
   "1420": {
     "slug_id": "1420",
@@ -173,7 +257,11 @@
     "address": "387 Southeast Bandit Street",
     "city": "Madison",
     "state": "FL",
-    "zip": "32340"
+    "zip": "32340",
+    "transportation": {
+      "drummonds": "620",
+      "yatesCenter": "1049"
+    }
   },
   "1419": {
     "slug_id": "1419",
@@ -181,7 +269,11 @@
     "address": "1055 US-98",
     "city": "Okeechobee",
     "state": "FL",
-    "zip": "34972"
+    "zip": "34972",
+    "transportation": {
+      "drummonds": "994",
+      "yatesCenter": "1373"
+    }
   },
   "1608": {
     "slug_id": "1608",
@@ -189,7 +281,11 @@
     "address": "1055 US-98",
     "city": "Okeechobee",
     "state": "FL",
-    "zip": "34972"
+    "zip": "34972",
+    "transportation": {
+      "drummonds": "994",
+      "yatesCenter": "1373"
+    }
   },
   "1421": {
     "slug_id": "1421",
@@ -197,7 +293,11 @@
     "address": "524 N Market Blvd",
     "city": "Webster",
     "state": "FL",
-    "zip": "33597"
+    "zip": "33597",
+    "transportation": {
+      "drummonds": "826",
+      "yatesCenter": "1255"
+    }
   },
   "1422": {
     "slug_id": "1422",
@@ -205,7 +305,11 @@
     "address": "2719 Earnest St",
     "city": "Arcadia",
     "state": "FL",
-    "zip": "34266"
+    "zip": "34266",
+    "transportation": {
+      "drummonds": "949",
+      "yatesCenter": "1378"
+    }
   },
   "1609": {
     "slug_id": "1609",
@@ -213,7 +317,11 @@
     "address": "2719 Earnest St",
     "city": "Arcadia",
     "state": "FL",
-    "zip": "34266"
+    "zip": "34266",
+    "transportation": {
+      "drummonds": "949",
+      "yatesCenter": "1378"
+    }
   },
   "1423": {
     "slug_id": "1423",
@@ -221,7 +329,11 @@
     "address": "12171 US-441",
     "city": "Lake City",
     "state": "FL",
-    "zip": "32025"
+    "zip": "32025",
+    "transportation": {
+      "drummonds": "707",
+      "yatesCenter": "1136"
+    }
   },
   "1424": {
     "slug_id": "1424",
@@ -229,7 +341,11 @@
     "address": "9100 NW Highway 25A",
     "city": "Ocala",
     "state": "FL",
-    "zip": "34482"
+    "zip": "34482",
+    "transportation": {
+      "drummonds": "773",
+      "yatesCenter": "1202"
+    }
   },
   "1510": {
     "slug_id": "1510",
@@ -237,7 +353,11 @@
     "address": "4603 Packers Ave",
     "city": "St Joseph",
     "state": "MO",
-    "zip": "64504"
+    "zip": "64504",
+    "transportation": {
+      "drummonds": "566",
+      "yatesCenter": "151"
+    }
   },
   "1511": {
     "slug_id": "1511",
@@ -245,7 +365,11 @@
     "address": "4603 Packers Ave",
     "city": "St Joseph",
     "state": "MO",
-    "zip": "64504"
+    "zip": "64504",
+    "transportation": {
+      "drummonds": "566",
+      "yatesCenter": "151"
+    }
   },
   "1512": {
     "slug_id": "1512",
@@ -253,7 +377,11 @@
     "address": "4603 Packers Ave",
     "city": "St Joseph",
     "state": "MO",
-    "zip": "64504"
+    "zip": "64504",
+    "transportation": {
+      "drummonds": "566",
+      "yatesCenter": "151"
+    }
   },
   "1607": {
     "slug_id": "1607",
@@ -261,7 +389,11 @@
     "address": "200 N Kentucky Ave",
     "city": "Lakeland",
     "state": "FL",
-    "zip": "33801"
+    "zip": "33801",
+    "transportation": {
+      "drummonds": "859",
+      "yatesCenter": "1289"
+    }
   },
   "1621": {
     "slug_id": "1621",
@@ -269,7 +401,11 @@
     "address": "1173 MO-52",
     "city": "Windsor",
     "state": "MO",
-    "zip": "65360"
+    "zip": "65360",
+    "transportation": {
+      "drummonds": "424",
+      "yatesCenter": "173"
+    }
   },
   "1622": {
     "slug_id": "1622",
@@ -277,6 +413,10 @@
     "address": "1173 MO-52",
     "city": "Windsor",
     "state": "MO",
-    "zip": "65360"
+    "zip": "65360",
+    "transportation": {
+      "drummonds": "424",
+      "yatesCenter": "173"
+    }
   }
 }
