@@ -79,6 +79,17 @@ export class AuctionDataUtility {
         let heiferMedian = 0;
         let steerArr = [];
         let heiferArr = [];
+
+        let steerMinPrice = 1000000000;
+        let steerMaxPrice = 0;
+        let steerMinWeight = 1000000000;
+        let steerMaxWeight = 0;
+
+        let heiferMinPrice = 100000000;
+        let heiferMaxPrice = 0;
+        let heiferMinWeight = 1000000000;
+        let heiferMaxWeight = 0;
+
         let results = auctionData[key].results;
         let lastReportDate = results[0].report_date;
         //let priceUnitArr = [];  /* todo: develop a more dynamic system that will make sure there are no other price units */
@@ -86,15 +97,48 @@ export class AuctionDataUtility {
           switch(current._class){
             case 'Steers':
               if(current.report_date==lastReportDate){
-                steerArr.push(+current.avg_price);
-                //priceUnitArr.push(current.price_unit);
+
+                if(+current.avg_weight <= 500 && +current.avg_weight >= 400){
+                  steerArr.push(+current.avg_price);
+
+                  if(steerMinPrice > +current.avg_price){
+                    steerMinPrice = +current.avg_price;
+                  }
+                  if(steerMaxPrice < +current.avg_price){
+                    steerMaxPrice = +current.avg_price;
+                  }
+
+                  if(steerMinWeight > +current.avg_weight){
+                    steerMinWeight = +current.avg_weight;
+                  }
+                  if(steerMaxWeight < +current.avg_weight){
+                    steerMaxWeight = +current.avg_weight;
+                  }
+                }
               }
               break;
 
             case 'Heifers':
               if(current.report_date==lastReportDate){
-                heiferArr.push(+current.avg_price);
-                //priceUnitArr.push(current.price_unit);
+
+
+                if(+current.avg_weight <= 500 && +current.avg_weight >= 400){
+                  heiferArr.push(+current.avg_price);
+
+                  if(heiferMinPrice > +current.avg_price){
+                    heiferMinPrice = +current.avg_price;
+                  }
+                  if(heiferMaxPrice < +current.avg_price){
+                    heiferMaxPrice = +current.avg_price;
+                  }
+
+                  if(heiferMinWeight > +current.avg_weight){
+                    heiferMinWeight = +current.avg_weight;
+                  }
+                  if(heiferMaxWeight < +current.avg_weight){
+                    heiferMaxWeight = +current.avg_weight;
+                  }
+                }
               }
               break;
           }
@@ -113,11 +157,18 @@ export class AuctionDataUtility {
           heiferCount: heiferArr.length,
           steerCount: steerArr.length,
           lastReportDate: lastReportDate,
-          priceUnit: auctionData[key].price_unit
+          priceUnit: auctionData[key].price_unit,
+          steerMinPrice: steerMinPrice,
+          steerMaxPrice: steerMaxPrice,
+          steerMinWeight: steerMinWeight,
+          steerMaxWeight: steerMaxWeight,
+          heiferMinPrice: heiferMinPrice,
+          heiferMaxPrice: heiferMaxPrice,
+          heiferMinWeight: heiferMinWeight,
+          heiferMaxWeight: heiferMaxWeight
         };
         auctionGlobalMap[key] = auctionDataMap;
       }
-      console.log(auctionGlobalMap);
       return auctionGlobalMap;
     });
     return globalAuctionData$;
@@ -137,7 +188,7 @@ export class AuctionDataUtility {
       middle -= 0.5;
       median = array[middle];
     } else {  /* If the result is a not a fraction due to an even number of elements */
-      let m1 = array[middle-2];
+      let m1 = array[middle];
       let m2 = array[middle-1];
       median = (m1+m2)/2;
     }

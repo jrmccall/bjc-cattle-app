@@ -66,6 +66,7 @@ export class StartPage {
     return reports.filter(function(currentReport, index, reportList) {
       if(currentReport.market_types.findIndex(
           function(currentMarketType, index, marketTypeList) {
+            //todo: change this to currentMarketType.includes('Auction'); or something like that
             return currentMarketType =='Live Auction'
           }) != -1) {
         return currentReport;

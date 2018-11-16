@@ -30,6 +30,9 @@ export class LibraryActions {
   static readonly SET_AUCTION_TABLE =
     'SET_AUCTION_TABLE';
 
+  static readonly SET_USER_CONFIG =
+    'SET_USER_CONFIG';
+
 
   constructor(private _ngRedux: NgRedux<IAppState>, private auctionInfo: AuctionInfoTableProvider) {
   }
@@ -58,6 +61,15 @@ export class LibraryActions {
     this._ngRedux.dispatch({
       type: LibraryActions.SET_STATE_DATA,
       payload: {stateData}
+    });
+
+  }
+
+  setUserConfig(userConfig: any){
+
+    this._ngRedux.dispatch({
+      type: LibraryActions.SET_USER_CONFIG,
+      payload: {userConfig}
     });
 
   }

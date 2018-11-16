@@ -72,13 +72,13 @@ export class LibraryService {
     urls.forEach(function(current){
       responses.push(httpClient.get(current, httpOptions));
     });
-    //console.log(responses);
+    console.log(responses);
     let testResponses = [];
     for(let i=0; i<5; i++){
       testResponses.push(responses[i]);
     }
 
-    let responses$ = Observable.forkJoin(testResponses).map((data: any[]) => {
+    let responses$ = Observable.forkJoin(responses).map((data: any[]) => {
       let responseTable = {};
       console.log(data);
       data.forEach(function(current, index) {
@@ -93,6 +93,10 @@ export class LibraryService {
       }
     );
     return responses$;
+  }
+
+  setUserConfig(userConfig){
+    return this.httpClient.post('../../assets/json/user-config.json', userConfig);
   }
 
 

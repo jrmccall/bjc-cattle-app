@@ -11,7 +11,8 @@ import {Observable} from "rxjs/Rx";
 })
 export class HomePage {
 
-  @select(['library', 'MARSData']) marsReports$: Observable<MarsAllReports[]>;
+  @select(['library', 'globalAuctionData']) globalAuctionData$: Observable<any>;
+  @select(['library', 'auctionTableData']) auctionTable: Observable<any>;
 
   auctionReports: MarsAllReports[];
 
@@ -26,15 +27,46 @@ export class HomePage {
   ionViewWillLeave() {
   }
 
-  auctionList$: Observable<MarsAllReports[]> = this.marsReports$.map((reports: MarsAllReports[]) => {
-    if(isEmpty(reports)){
+  highestAuction$: Observable<any> = Observable.combineLatest(
+    this.globalAuctionData$,
+    this.auctionTable,
+  (globalData: any, auctionTable: any) => {
+    if(globalData == null){
       return null;
     }
-    this.auctionReports = reports.filter(function(currentReport, index, reportList) {
-      return currentReport.market_types.findIndex(function(currentMarketType, index, marketTypeList){return currentMarketType =='Live Auction'});
-    });
-    console.log(this.auctionReports);
-    return this.auctionReports;
+
+    let highestSteerAuction = null;
+    let highestHeiferAuction = null;
+    let key = '';
+    let i = 0;
+    for(key in globalData){
+      if(globalData.hasOwnProperty(key)){
+        if(i==0){
+          highestSteerAuction = globalData[key];
+          highestHeiferAuction = globalData[key];
+        }
+
+        if(globalData[key].avgSteerPrice > highestSteerAuction.avgSteerPrice){
+          highestSteerAuction = globalData[key];
+        }
+
+        if(globalData[key].avgHeiferPrice > highestHeiferAuction.avgSteerPrice){
+          highestHeiferAuction = globalData[key];
+        }
+      }
+      i++;
+    }
+    if(highestSteerAuction.avgSteerPrice > highestHeiferAuction.avgHeiferPrice){
+      return {
+        name: auctionTable[highestHeiferAuction.slug_id],
+        price: highestHeiferAuction.avgHeiferPrice
+      };
+    } else {
+      return {
+        name: auctionTable[highestSteerAuction.slug_id],
+        price: highestSteerAuction.avgSteerPrice
+      };
+    }
   });
 
 }

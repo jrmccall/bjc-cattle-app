@@ -66,6 +66,8 @@ export const libraryReducer = (state: ILibraryState = INITIAL_STATE, action: IAc
       return {...state, globalAuctionData: action.payload.globalAuctionData, isLoading: false, sequenceNumber: 3};
     case LibraryActions.SET_STATE_DATA:
       return {...state, stateData: action.payload.stateData, sequenceNumber: 4};
+    case LibraryActions.SET_USER_CONFIG:
+      return {...state, userConfig: action.payload.userConfig};
     default:
       return state;
   }

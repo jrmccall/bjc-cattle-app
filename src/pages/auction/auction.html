@@ -9,6 +9,12 @@
   <ion-navbar>
     <ion-title>Auction</ion-title>
     <ion-buttons padding-right end>
+      <button ion-button icon-only (click)="presentWeightPrompt()">
+        <ion-icon name="md-funnel"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="presentTimePrompt()">
+        <ion-icon name="md-alarm"></ion-icon>
+      </button>
       <button ion-button icon-only (click)="changeDisplayType()">
         <ion-icon name="{{iconType}}"></ion-icon>
       </button>
@@ -30,9 +36,30 @@
     <p>City, State: {{(auctionInfo$ | async)?.city}}, {{(auctionInfo$ | async)?.state}}</p>
     <p>Zip: {{(auctionInfo$ | async)?.zip}}</p>
   </div>
-  <!--<button ion-button (click)="presentTimePrompt()">Time</button>-->
-  <!--<button ion-button (click)="presentTypePrompt()">Type</button>-->
-  <!--<button ion-button (click)="presentTestPrompt()">Test</button>-->
+
+  <hr>
+
+  <h3>Auction Records ({{mostRecentReportDate}})</h3>
+
+  <div class="header">
+    <ion-row>
+      <ion-col (click)="changeRecordSort('_class')">Class</ion-col>
+      <ion-col (click)="changeRecordSort('avg_weight')">Average Weight (lbs.)</ion-col>
+      <ion-col (click)="changeRecordSort('muscle_grade')">Muscle Grade</ion-col>
+      <ion-col (click)="changeRecordSort('head_count')">Head Count</ion-col>
+      <ion-col (click)="changeRecordSort('avg_price')">Price ($ per Cwt)</ion-col>
+    </ion-row>
+  </div>
+
+  <div class="records">
+    <ion-row *ngFor="let record of mostRecentRecords$ | async">
+      <ion-col>{{record._class}}</ion-col>
+      <ion-col>{{record.avg_weight}}</ion-col>
+      <ion-col>{{record.muscle_grade}}</ion-col>
+      <ion-col>{{record.head_count}}</ion-col>
+      <ion-col>{{record.avg_price}}</ion-col>
+    </ion-row>
+  </div>
 
 
 </ion-content>
