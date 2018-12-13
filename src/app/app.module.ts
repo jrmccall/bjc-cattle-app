@@ -18,6 +18,7 @@ import {AuctionInfoPopover} from "../pages/auction-info-popover/auction-info-pop
 import {AuctionInfoTableProvider} from "../providers/auction-info-table-provider";
 import {StartPage} from "../pages/start/start";
 import {AuctionDataUtility} from "../utility/auctionDataUtility";
+import {UserConfigPage} from "../pages/user-config/user-config";
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {AuctionDataUtility} from "../utility/auctionDataUtility";
     MapPage,
     AuctionPage,
     AuctionInfoPopover,
-    StartPage
+    StartPage,
+    UserConfigPage
   ],
   imports: [
     BrowserModule,
@@ -46,7 +48,8 @@ import {AuctionDataUtility} from "../utility/auctionDataUtility";
     MapPage,
     AuctionPage,
     AuctionInfoPopover,
-    StartPage
+    StartPage,
+    UserConfigPage
   ],
   providers: [
     StatusBar,

@@ -25,21 +25,36 @@
 
   <ion-row class="transparent-items auction-header">
     <ion-col >Auction</ion-col>
-    <ion-col  *ngIf="(displayType$ | async)=='steer'" (click)="sortByAvgSteerPrice()">Average/Median <br/> Steer Price (per Cwt)</ion-col>
-    <ion-col  *ngIf="(displayType$ | async)=='heifer'" (click)="sortByAvgHeiferPrice()">Average/Median <br/> Heifer Price (per Cwt)</ion-col>
+    <ion-col  *ngIf="(displayType$ | async)=='steer'" (click)="sortByAvgSteerPrice()">Steer Price Range (per Cwt)</ion-col>
+    <ion-col  *ngIf="(displayType$ | async)=='heifer'" (click)="sortByAvgHeiferPrice()">Heifer Price Range (per Cwt)</ion-col>
+
+    <ion-col  *ngIf="(displayType$ | async)=='steer'" (click)="sortByWeight()">Steer Weight Range</ion-col>
+    <ion-col  *ngIf="(displayType$ | async)=='heifer'" (click)="sortByWeight()">Heifer Weight Range</ion-col>
+
     <ion-col  *ngIf="(displayType$ | async)=='steer'">Record Count</ion-col>
     <ion-col  *ngIf="(displayType$ | async)=='heifer'">Record Count</ion-col>
-    <ion-col >Last Report Date</ion-col>
-    <ion-col> Transporation Cost</ion-col>
+
+    <ion-col (click)="sortByDate()">Last Report Date</ion-col>
+
+    <ion-col (click)="sortByTransportation()"> Median Price w Transportation (per Cwt) <small>[{{(transportationCity$ | async).toUpperCase()}}]</small></ion-col>
   </ion-row>
   <ion-row class="transparent-items auction-list" *ngFor="let auction of auctionDisplayList$ | async" (click)="pushAuctionPage(auction)">
     <ion-col >{{auction.name}}</ion-col>
-    <ion-col  *ngIf="(displayType$ | async)=='steer'">${{auction.steerAvgPrice}} / ${{auction.steerMedPrice}}</ion-col>
-    <ion-col  *ngIf="(displayType$ | async)=='heifer'">${{auction.heiferAvgPrice}} / ${{auction.heiferMedPrice}}</ion-col>
+    <ion-col  *ngIf="(displayType$ | async)=='steer'">${{auction.steerMinPrice}} - ${{auction.steerMaxPrice}}</ion-col>
+    <ion-col  *ngIf="(displayType$ | async)=='heifer'">${{auction.heiferMinPrice}} - ${{auction.heiferMaxPrice}}</ion-col>
+
+    <ion-col  *ngIf="(displayType$ | async)=='steer'">{{auction.steerMinWeight}} - {{auction.steerMaxWeight}}</ion-col>
+    <ion-col  *ngIf="(displayType$ | async)=='heifer'">{{auction.heiferMinWeight}} - {{auction.heiferMaxWeight}}</ion-col>
+
     <ion-col  *ngIf="(displayType$ | async)=='steer'">{{auction.steerCount}}</ion-col>
     <ion-col  *ngIf="(displayType$ | async)=='heifer'">{{auction.heiferCount}}</ion-col>
+
     <ion-col >{{auction.lastReportDate}}</ion-col>
-    <ion-col *ngIf="(transportationCity$ | async)=='TN'"> {{auction.transportation.TN.totalCost}}</ion-col>
-    <ion-col *ngIf="(transportationCity$ | async)=='KC'"> {{auction.transportation.KC.totalCost}}</ion-col>
+
+    <ion-col *ngIf="(displayType$ | async)=='steer' && (transportationCity$ | async)=='drummonds'">${{auction.transportation.drummonds.steer}}</ion-col>
+    <ion-col *ngIf="(displayType$ | async)=='heifer' && (transportationCity$ | async)=='drummonds'">${{auction.transportation.drummonds.heifer}}</ion-col>
+
+    <ion-col *ngIf="(displayType$ | async)=='steer' && (transportationCity$ | async)=='yatesCenter'">${{auction.transportation.yatesCenter.steer}}</ion-col>
+    <ion-col *ngIf="(displayType$ | async)=='heifer' && (transportationCity$ | async)=='yatesCenter'">${{auction.transportation.yatesCenter.heifer}}</ion-col>
   </ion-row>
 </ion-content>

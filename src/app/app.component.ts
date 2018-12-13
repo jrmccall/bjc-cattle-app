@@ -9,6 +9,7 @@ import {MapPage} from "../pages/map/map";
 import {LibraryActions} from "../library/library.actions";
 import {AuctionInfoTableProvider} from "../providers/auction-info-table-provider";
 import {StartPage} from "../pages/start/start";
+import {UserConfigPage} from "../pages/user-config/user-config";
 
 @Component({
   templateUrl: 'app.html'
@@ -27,7 +28,8 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: HomePage },
       {title: 'States', component: StatesPage},
-      {title: 'Map', component: MapPage}
+      {title: 'Map', component: MapPage},
+      {title: 'User Config', component: UserConfigPage}
     ];
 
   }

@@ -14,6 +14,7 @@ export interface ILibraryState {
   globalAuctionData: any;
   stateData: any;
   transportationData: any;
+  userConfig: any;
 }
 
 export const INITIAL_STATE: ILibraryState = {
@@ -25,7 +26,8 @@ export const INITIAL_STATE: ILibraryState = {
   auctionData: null,
   globalAuctionData: null,
   stateData: null,
-  transportationData: null
+  transportationData: null,
+  userConfig: null
 };
 
 export const libraryReducer = (state: ILibraryState = INITIAL_STATE, action: IAction): ILibraryState => {
@@ -39,7 +41,8 @@ export const libraryReducer = (state: ILibraryState = INITIAL_STATE, action: IAc
         sequenceNumber: 1,
         MARSData: action.payload.MARSData,
         transportationData: action.payload.transportationData,
-        auctionTableData: action.payload.auctionTable
+        auctionTableData: action.payload.auctionTable,
+        userConfig: action.payload.userConfig
       };
     case LibraryActions.LOAD_ALL.REQUEST:
       return {...state, error: null, isLoading: true};
@@ -63,6 +66,8 @@ export const libraryReducer = (state: ILibraryState = INITIAL_STATE, action: IAc
       return {...state, globalAuctionData: action.payload.globalAuctionData, isLoading: false, sequenceNumber: 3};
     case LibraryActions.SET_STATE_DATA:
       return {...state, stateData: action.payload.stateData, sequenceNumber: 4};
+    case LibraryActions.SET_USER_CONFIG:
+      return {...state, userConfig: action.payload.userConfig};
     default:
       return state;
   }
