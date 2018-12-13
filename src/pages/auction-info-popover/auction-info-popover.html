@@ -1,6 +1,14 @@
 <ion-content padding>
-  <h5>Auction Name</h5>
-  <div>
-    <p><b>Price: </b>$</p>
+  <h5>{{name}}</h5>
+  <h6>Last Report Date: {{mostRecentDate}}</h6>
+  <!--<div>-->
+    <!--<p><b>Steer Price Range: </b></p>-->
+    <!--<p>${{steerMinPrice}} - ${{steerMaxPrice}}</p>-->
+    <!--<p><b>Avg Heifer Price: </b></p>-->
+    <!--<p>${{heiferMinPrice}} - ${{heiferMaxPrice}}</p>-->
+  <!--</div>-->
+  <div class="chart">
+    <canvas #chartCanvas></canvas>
   </div>
+  <button class="center" ion-button (click)="pushAuctionPage()"> Go to Auction Page</button>
 </ion-content>

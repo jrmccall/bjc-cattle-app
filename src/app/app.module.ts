@@ -19,6 +19,7 @@ import {AuctionInfoTableProvider} from "../providers/auction-info-table-provider
 import {StartPage} from "../pages/start/start";
 import {AuctionDataUtility} from "../utility/auctionDataUtility";
 import {UserConfigPage} from "../pages/user-config/user-config";
+import {JsonpModule} from "@angular/http";
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import {UserConfigPage} from "../pages/user-config/user-config";
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     LibraryModule,
     AuctionInfoTableProvider,
-    AuctionDataUtility
+    AuctionDataUtility,
+    JsonpModule
   ]
 })
 export class AppModule {}

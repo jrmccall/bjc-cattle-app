@@ -5,6 +5,7 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import {IGlobalData} from "./global-data.model";
 import {MarsAllReports} from "./mars-all-reports.model";
+import * as d3 from 'd3-fetch';
 
 const mars_api_url = 'https://marsapi.ams.usda.gov/services/v1/reports';
 const mars_api_key = 'YEULfkcsaG9Mgs7aV4KDgcHUKUQuOxD4';
@@ -29,6 +30,15 @@ export class LibraryService {
   }
 
   getTransportationJSON(){
+    // let json = {};
+    // let jsonOb = Observable.of(json);
+    // d3.json('../../assets/json/transportation-cost.json').then(function(data) {
+    //   console.log(data);
+    //   json = data;
+    //   jsonOb.subscribe(next => json);
+    // });
+
+
     let json = this.httpClient.get('../../assets/json/transportation-cost.json');
     json.subscribe(data => {
       console.log(data);
@@ -74,7 +84,7 @@ export class LibraryService {
     });
     console.log(responses);
     let testResponses = [];
-    for(let i=0; i<5; i++){
+    for(let i=0; i<10; i++){
       testResponses.push(responses[i]);
     }
 

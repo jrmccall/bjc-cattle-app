@@ -127,7 +127,7 @@ export class AuctionPage {
       return heifers;
     });
 
-  /* This is to the data for the steers and heifers individually to display on the chart
+  /* This is to sort the data for the steers and heifers individually to display on the chart
    * without having to do the separate the data again. Additionally, the filters
    * can be applied here to the datasets separately without having to have a ton of logic
    * put all together in one observable.
