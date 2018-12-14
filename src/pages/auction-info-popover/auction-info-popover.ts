@@ -106,10 +106,10 @@ export class AuctionInfoPopover {
       if(isEmpty(steerData) || isEmpty(heiferData)){
         return [];
       }
-      let steerMaxWeightClass = steerData[steerData.length-1];
-      let steerMinWeightClass = steerData[steerData.length-1];
-      let heiferMaxWeightClass = heiferData[heiferData.length-1];
-      let heiferMinWeightClass = heiferData[heiferData.length-1];
+      let steerMaxWeightClass = steerData[steerData.length-1].x;
+      let steerMinWeightClass = steerData[0].x;
+      let heiferMaxWeightClass = heiferData[heiferData.length-1].x;
+      let heiferMinWeightClass = heiferData[0].x;
 
       let maxRange = '';
       let minRange = '';
@@ -125,18 +125,17 @@ export class AuctionInfoPopover {
       } else {
         minRange = heiferMinWeightClass;
       }
-      //todo: fix data slicing, slice isn't a method apparently
-      let min = minRange.slice(0, 2);
-      let max = maxRange.slice(4,6);
+
+      let min = +minRange.split('-')[0];
+      let max = +maxRange.split('-')[1];
       let range = [];
 
       while(min < max){
-        let weightRange = min + '-' + min+100;
+        let weightRange = min + '-' + (min+100);
         range.push(weightRange);
         min += 100;
 
       }
-      console.log(range);
 
       return range;
     });
@@ -180,7 +179,6 @@ export class AuctionInfoPopover {
         scales: {
           xAxes: [{
             type: 'category',
-            labels: ['100-200', '200-300', '300-400', '400-500', '500-600', '600-700', '700-800', '800-900', '900-1000', '1000-1100', '1100-1200'],
             scaleLabel: {
               display: true,
               labelString: 'Weight Class'
@@ -210,7 +208,7 @@ export class AuctionInfoPopover {
 
     this.chartDataRange$.filter(datasets => !isEmpty(datasets)).subscribe(datasets => {
       const ci = this.lineChart;
-      ci.options.scales.xAxes.labels = datasets;
+      ci.options.scales.xAxes[0].labels = datasets;
       ci.update();
     });
 
@@ -226,7 +224,6 @@ export class AuctionInfoPopover {
   getDataForType(auctionDataArray: any[], type, weightLowerBound){
     let typeData = [];
     let weightLowBound = this.getHundredRange(+auctionDataArray[0].avg_weight);
-    console.log(weightLowBound);
     let avgPrice = 0;
     let totalWeight = 0;
     let count = 0;
@@ -255,7 +252,6 @@ export class AuctionInfoPopover {
       }
 
     });
-    console.log(typeData);
     return typeData;
   }
 
